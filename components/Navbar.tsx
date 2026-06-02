@@ -10,7 +10,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useApp } from '@/lib/context';
-import { Dumbbell, User, LogOut, Home, Settings, BarChart2, Scale, Medal, UtensilsCrossed } from 'lucide-react';
+import { Dumbbell, User, LogOut, Home, Settings, BarChart2, Scale, Medal, UtensilsCrossed, Shield } from 'lucide-react';
+
 export function Navbar() {
   const { usuario, vista, setVista, logout } = useApp();
 
@@ -89,14 +90,14 @@ export function Navbar() {
           </Button>
 
           <Button
-  variant={vista === 'comidas' ? 'secondary' : 'ghost'}
-  size="sm"
-  onClick={() => setVista('comidas')}
-  className="gap-2"
->
-  <UtensilsCrossed className="w-4 h-4" />
-  <span className="hidden sm:inline">Comidas</span>
-</Button>
+            variant={vista === 'comidas' ? 'secondary' : 'ghost'}
+            size="sm"
+            onClick={() => setVista('comidas')}
+            className="gap-2"
+          >
+            <UtensilsCrossed className="w-4 h-4" />
+            <span className="hidden sm:inline">Comidas</span>
+          </Button>
 
           <Button
             variant={vista === 'perfil' ? 'secondary' : 'ghost'}
@@ -107,6 +108,19 @@ export function Navbar() {
             <Settings className="w-4 h-4" />
             <span className="hidden sm:inline">Perfil</span>
           </Button>
+
+          {/* Botón Admin - solo visible para admins */}
+          {usuario.rol === 'admin' && (
+            <Button
+              variant={vista === 'admin' ? 'secondary' : 'ghost'}
+              size="sm"
+              onClick={() => setVista('admin')}
+              className="gap-2 text-red-400 hover:text-red-400"
+            >
+              <Shield className="w-4 h-4" />
+              <span className="hidden sm:inline">Admin</span>
+            </Button>
+          )}
         </nav>
 
         {/* User Menu */}
@@ -134,6 +148,9 @@ export function Navbar() {
               <div>
                 <p className="text-sm font-medium">{usuario.nombre}</p>
                 <p className="text-xs text-muted-foreground">{usuario.peso} kg</p>
+                {usuario.rol === 'admin' && (
+                  <p className="text-xs text-red-400 font-medium">Administrador</p>
+                )}
               </div>
             </div>
             <DropdownMenuSeparator />

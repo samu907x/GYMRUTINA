@@ -2,13 +2,14 @@ export type Objetivo = 'bajar_peso' | 'fuerza' | 'resistencia';
 
 export type TipoRutina = 'cardio' | 'fuerza' | 'flexibilidad';
 
-export type Vista = 'login' | 'registro' | 'dashboard' | 'perfil' | 'detalle' | 'progreso' | 'imc' | 'logros' | 'peso' | 'comidas';
+export type Vista = 'login' | 'registro' | 'dashboard' | 'perfil' | 'detalle' | 'progreso' | 'imc' | 'logros' | 'peso' | 'comidas'  | 'admin';
 export interface Usuario {
   id: string;
   nombre: string;
   peso: number;
   nivelEnergia: number;
   objetivo: Objetivo;
+  rol?: string;
 }
 
 export interface Ejercicio {

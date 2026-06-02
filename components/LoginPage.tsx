@@ -68,13 +68,22 @@ export function LoginPage() {
   console.log("DATA:", data.usuario);
   
   setUsuario({
-    id: data.usuario.id.toString(),
-    nombre: data.usuario.nombre,
-    peso: Number(data.usuario.peso),
-    nivelEnergia: Number(data.usuario.nivel_energia),
-    objetivo: data.usuario.objetivo,
-  });
-  localStorage.setItem("usuario_id", data.usuario.id.toString());
+  id: data.usuario.id.toString(),
+  nombre: data.usuario.nombre,
+  peso: Number(data.usuario.peso),
+  nivelEnergia: Number(data.usuario.nivel_energia),
+  objetivo: data.usuario.objetivo,
+  rol: data.usuario.rol,
+});
+localStorage.setItem("usuario", JSON.stringify({
+  id: data.usuario.id.toString(),
+  nombre: data.usuario.nombre,
+  peso: Number(data.usuario.peso),
+  nivelEnergia: Number(data.usuario.nivel_energia),
+  objetivo: data.usuario.objetivo,
+  rol: data.usuario.rol,
+}));
+localStorage.setItem("usuario_id", data.usuario.id.toString());
 
   setVista("dashboard");
 }

@@ -11,6 +11,7 @@ import { IMCPage } from '@/components/IMCPage';
 import { LogrosPage } from '@/components/LogrosPage';
 import { PesoPage } from '@/components/PesoPage';
 import { ComidasPage } from '@/components/ComidasPage';
+import { AdminPage } from '@/components/AdminPage';
 
 function AppContent() {
   const { vista } = useApp();
@@ -36,7 +37,9 @@ function AppContent() {
       return <PesoPage />;
     case 'comidas':
       return <ComidasPage />;
-    default:
+    case 'admin':
+      return <AdminPage />; 
+    default: 
       return <LoginPage />;
   }
 }

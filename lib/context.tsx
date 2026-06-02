@@ -22,7 +22,11 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [usuarioState, setUsuarioState] = useState<Usuario | null>(null);
+  const [usuarioState, setUsuarioState] = useState<Usuario | null>(() => {
+  if (typeof window === 'undefined') return null;
+  const guardado = localStorage.getItem("usuario");
+  return guardado ? JSON.parse(guardado) : null;
+});
   const [rutina, setRutina] = useState<Rutina | null>(null);
   const [vista, setVista] = useState<Vista>('login');
   const [estaCansado, setEstaCansado] = useState(false);
@@ -30,12 +34,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   console.log("VISTA:", vista, "USUARIO:", usuarioState?.nombre);
 
   const logout = () => {
-    setUsuarioState(null);
-    setRutina(null);
-    setVista('login');
-    setEstaCansado(false);
-    setError('');
-  };
+  setUsuarioState(null);
+  setRutina(null);
+  setVista('login');
+  setEstaCansado(false);
+  setError('');
+  localStorage.removeItem("usuario");
+  localStorage.removeItem("usuario_id");
+};
 
   const generarNuevaRutina = () => {
     if (usuarioState) {
